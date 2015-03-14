@@ -26,7 +26,8 @@ class I2C_API():
 
 
 	def begin(self, mode=I2C.MASTER, addr=0x12, baudrate=400000, gencall=False):
-		self.i2c.init(mode=mode, addr=addr, baudrate=baudrate, gencall=gencall)
+		self._ADDR = addr
+		self.i2c.init(mode=mode, addr=self._ADDR, baudrate=baudrate, gencall=gencall)
 
 
 	def close(self):
