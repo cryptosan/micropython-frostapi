@@ -1,9 +1,9 @@
 """
 	This library is an I2C API for micro-python.
 
-	Pre-Alpha v0.1 - Yi Soo, An
+	Pre-Alpha v0.1 - Hyun Jun (Cryptos) An
 
-	Github : https://github.com/yisoo/micropython-i2c_api
+	Github : https://github.com/cryptosan/micropython-frostapi
 """
 from pyb import I2C
 
