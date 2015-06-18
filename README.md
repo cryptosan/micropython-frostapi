@@ -1,4 +1,5 @@
 # Frost API
-Custom I2C API for micro-python  
+A custom easy API for pyboard.  
+Pre-alpha v0.2  
 
-Usage: Inherit this library, and call the functions.
+Docs will be come soon.
