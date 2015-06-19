@@ -20,7 +20,7 @@ class FrostAPI():
                       gencall=gencall)
 
     def close(self):
-        if self.is_init() is False:
+        if not self.is_init():
             self.not_init_device()
         self.i2c.deinit()
 
@@ -40,17 +40,17 @@ class FrostAPI():
         return self._ADDR
 
     def _send(self, buf, addr=0x00, timeout=5000):
-        if self.is_ready() is False:
+        if not self.is_ready():
             self.not_found_address()
         self.i2c.send(send=buf, addr=addr, timeout=timeout)
 
     def _recv(self, size, addr=0x00, timeout=5000):
-        if self.is_ready() is False:
+        if not self.is_ready():
             self.not_found_address()
         return self.i2c.recv(recv=size, addr=addr, timeout=timeout)
 
     def _write(self, buf, addr, memaddr, timeout=5000, addr_size=8):
-        if self.is_ready() is False:
+        if not self.is_ready():
             self.not_found_address()
         self.i2c.mem_write(data=buf,
                            addr=addr,
@@ -59,7 +59,7 @@ class FrostAPI():
                            addr_size=addr_size)
 
     def _read(self, size, addr, memaddr, timeout=5000, addr_size=8):
-        if self.is_ready() is False:
+        if not self.is_ready():
             self.not_found_address()
         return self.i2c.mem_read(data=size,
                                  addr=addr,
