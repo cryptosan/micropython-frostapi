@@ -12,6 +12,7 @@ class FrostAPI():
     def __init__(self, bus=1):
         self.i2c = I2C(bus)
         self._addr = None
+        self.set_timeout()
 
     def begin(self, mode=I2C.MASTER, addr=0x12, baudrate=400000,
               gencall=False):
@@ -41,32 +42,38 @@ class FrostAPI():
     def get_addr(self):
         return self._addr
 
-    def _send(self, buf, addr=0x00, timeout=5000):
+    def set_timeout(self, timeout=5000):
+        self._timeout = timeout
+
+    def get_timeout(self):
+        return self._timeout
+
+    def _send(self, buf, addr=0x00):
         if not self.is_ready():
             self.not_found_address()
-        self.i2c.send(send=buf, addr=addr, timeout=timeout)
+        self.i2c.send(send=buf, addr=addr, timeout=self.get_timeout())
 
-    def _recv(self, size, addr=0x00, timeout=5000):
+    def _recv(self, size, addr=0x00):
         if not self.is_ready():
             self.not_found_address()
-        return self.i2c.recv(recv=size, addr=addr, timeout=timeout)
+        return self.i2c.recv(recv=size, addr=addr, timeout=self.get_timeout())
 
-    def _write(self, buf, addr, memaddr, timeout=5000, addr_size=8):
+    def _write(self, buf, addr, memaddr, addr_size=8):
         if not self.is_ready():
             self.not_found_address()
         self.i2c.mem_write(data=buf,
                            addr=addr,
                            memaddr=memaddr,
-                           timeout=timeout,
+                           timeout=self.get_timeout(),
                            addr_size=addr_size)
 
-    def _read(self, size, addr, memaddr, timeout=5000, addr_size=8):
+    def _read(self, size, addr, memaddr, addr_size=8):
         if not self.is_ready():
             self.not_found_address()
         return self.i2c.mem_read(data=size,
                                  addr=addr,
                                  memaddr=memaddr,
-                                 timeout=timeout,
+                                 timeout=self.get_timeout(),
                                  addr_size=addr_size)
 
     def not_found_address(self):
