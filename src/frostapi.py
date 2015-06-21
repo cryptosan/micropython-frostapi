@@ -25,6 +25,8 @@ class FrostAPI():
         self.i2c.deinit()
 
     def is_ready(self):
+        if self.get_addr() is None:
+            raise Exception("You haven't init'ed your device by begin() yet.!")
         return self.i2c.is_ready(self.get_addr())
 
     def is_init(self):
