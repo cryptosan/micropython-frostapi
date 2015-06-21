@@ -8,15 +8,15 @@ from pyb import I2C
 
 
 class FrostAPI():
-    _ADDR = 0x00
 
     def __init__(self, bus=1):
         self.i2c = I2C(bus)
+        self._addr = None
 
     def begin(self, mode=I2C.MASTER, addr=0x12, baudrate=400000,
               gencall=False):
-        self._ADDR = addr
-        self.i2c.init(mode=mode, addr=self._ADDR, baudrate=baudrate,
+        self._addr = addr
+        self.i2c.init(mode=mode, addr=self._addr, baudrate=baudrate,
                       gencall=gencall)
 
     def close(self):
@@ -34,10 +34,10 @@ class FrostAPI():
         return self.i2c.scan()
 
     def set_addr(self, addr):
-        self._ADDR = addr
+        self._addr = addr
 
     def get_addr(self):
-        return self._ADDR
+        return self._addr
 
     def _send(self, buf, addr=0x00, timeout=5000):
         if not self.is_ready():
