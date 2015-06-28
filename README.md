@@ -1,5 +1,6 @@
 # Frost API
 A custom easy API for pyboard.  
-Pre-alpha v0.2  
+Pre-alpha v0.3  
 
-Docs will be come soon.
+Building up a documents in Sphinx.
+Will release it soon.
